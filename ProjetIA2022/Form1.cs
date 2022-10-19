@@ -16,6 +16,7 @@ namespace ProjetIA2022
     {
 
         static public double[,] matrice;
+        static public int environment;
         static public int nblignes;
         static public int nbcolonnes;
         static public int xinitial;
@@ -206,17 +207,20 @@ namespace ProjetIA2022
         }
         private void buttonInit1_Click(object sender, EventArgs e)
         {
+            environment = 1;
             load_environment("environnement1.txt");
             buttonAstar.Enabled = true;
         }
         private void buttonInit2_Click(object sender, EventArgs e)
         {
+            environment = 2;
             load_environment("environnement2.txt");
             buttonAstar.Enabled = true;
         }
 
         private void buttonInit3_Click(object sender, EventArgs e)
         {
+            environment = 3;
             load_environment("environnement3.txt");
             buttonAstar.Enabled = true;
         }

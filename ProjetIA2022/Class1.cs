@@ -58,11 +58,24 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-
-        public override double CalculeHCost()
+        public override double CalculeHCost(int envt)
         {
-            return( 0 );
-           
+            if(envt == 1) return HCostEvnt1();
+            else if(envt == 2) return HCostEvnt2();
+            else if(envt == 3) return HCostEvnt3();
+            return 0;
+        }
+
+        private double HCostEvnt1(){
+            return 0;
+        }
+
+        private double HCostEvnt2(){
+            return 0;
+        }
+        
+        private double HCostEvnt3(){
+            return 0;
         }
 
         public override string ToString()
@@ -71,3 +84,4 @@ namespace ProjetIA2022
         }
     }
 }
+
