@@ -60,7 +60,7 @@ namespace ProjetIA2022
 
         public override double CalculeHCost(int envt)
         {
-            if(envt == 1) return HCostEvnt1();
+            if(envt == 1) return HCostEvntV2();
             else if(envt == 2) return HCostEvnt2();
             else if(envt == 3) return HCostEvnt3();
             return 0;
@@ -71,7 +71,7 @@ namespace ProjetIA2022
             return Math.Sqrt(Math.Pow(xFin - xCurrent, 2) + Math.Pow(yFin - yCurrent, 2));
         }
 
-        private double HCostEvnt1()
+        private double HCostEvnt1V2()
         {
             double heuris=0;
             int xCurrent = x;
