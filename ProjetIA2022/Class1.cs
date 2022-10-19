@@ -73,46 +73,12 @@ namespace ProjetIA2022
 
         private double HCostEvnt1V2()
         {
-            double heuris=0;
             int xCurrent = x;
             int yCurrent = y;
-            int xfin = Form1.xfinal;
-            int yfin = Form1.yfinal;
-            while (xfin!= xCurrent && yfin!= yCurrent)
-            {
-                if(xfin< xCurrent) // x va a gauche, x reduit
-                {
-                    if(yfin< yCurrent) //y remonte, y reduit
-                    {
-                        xCurrent -= 1;
-                        yCurrent -= 1;
-                    }
-                    else
-                    {
-                        xCurrent -= 1;
-                        yCurrent += 1;
-                    }
-                }
-                else
-                {
-                    if (yfin < yCurrent)
-                    {
-                        xCurrent += 1;
-                        yCurrent -= 1;
-                    }
-                    else
-                    {
-                        xCurrent += 1;
-                        yCurrent += 1;
-                    }
-                }
-                heuris += Math.Sqrt(2);
-            }
-            if (xCurrent == xfin)
-                heuris += Math.Abs(yfin - yCurrent);
-            else 
-                heuris += Math.Abs(xfin - xCurrent);
-            return heuris;
+            int xFin = Form1.xfinal;
+            int yFin = Form1.yfinal;
+            return Norme(xCurrent, yCurrent, xFin, yFin);
+           
         }
 
         private double HCostEvnt2()

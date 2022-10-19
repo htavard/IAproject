@@ -62,7 +62,7 @@
             // 
             this.textBoxYinit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxYinit.Location = new System.Drawing.Point(56, 80);
-            this.textBoxYinit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxYinit.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxYinit.Name = "textBoxYinit";
             this.textBoxYinit.Size = new System.Drawing.Size(76, 23);
             this.textBoxYinit.TabIndex = 0;
@@ -72,7 +72,7 @@
             // 
             this.textBoxXInit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxXInit.Location = new System.Drawing.Point(56, 48);
-            this.textBoxXInit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxXInit.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxXInit.Name = "textBoxXInit";
             this.textBoxXInit.Size = new System.Drawing.Size(76, 23);
             this.textBoxXInit.TabIndex = 1;
@@ -106,7 +106,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(866, 158);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(151, 180);
             this.listBox1.TabIndex = 4;
@@ -114,7 +114,7 @@
             // treeView1
             // 
             this.treeView1.Location = new System.Drawing.Point(866, 400);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(151, 160);
             this.treeView1.TabIndex = 5;
@@ -123,7 +123,7 @@
             // 
             this.buttonInit1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInit1.Location = new System.Drawing.Point(310, 25);
-            this.buttonInit1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonInit1.Margin = new System.Windows.Forms.Padding(2);
             this.buttonInit1.Name = "buttonInit1";
             this.buttonInit1.Size = new System.Drawing.Size(76, 24);
             this.buttonInit1.TabIndex = 6;
@@ -135,7 +135,7 @@
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(328, 158);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(500, 500);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -168,7 +168,7 @@
             // 
             this.textBoxXFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxXFinal.Location = new System.Drawing.Point(56, 150);
-            this.textBoxXFinal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxXFinal.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxXFinal.Name = "textBoxXFinal";
             this.textBoxXFinal.Size = new System.Drawing.Size(76, 23);
             this.textBoxXFinal.TabIndex = 10;
@@ -178,7 +178,7 @@
             // 
             this.textBoxYFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxYFinal.Location = new System.Drawing.Point(56, 188);
-            this.textBoxYFinal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxYFinal.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxYFinal.Name = "textBoxYFinal";
             this.textBoxYFinal.Size = new System.Drawing.Size(76, 23);
             this.textBoxYFinal.TabIndex = 11;
@@ -188,7 +188,7 @@
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
             this.pictureBox2.Location = new System.Drawing.Point(-2, 372);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(267, 219);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -199,7 +199,7 @@
             // 
             this.buttonInit2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInit2.Location = new System.Drawing.Point(448, 25);
-            this.buttonInit2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonInit2.Margin = new System.Windows.Forms.Padding(2);
             this.buttonInit2.Name = "buttonInit2";
             this.buttonInit2.Size = new System.Drawing.Size(79, 24);
             this.buttonInit2.TabIndex = 13;
@@ -211,7 +211,7 @@
             // 
             this.buttonInit3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInit3.Location = new System.Drawing.Point(580, 25);
-            this.buttonInit3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonInit3.Margin = new System.Windows.Forms.Padding(2);
             this.buttonInit3.Name = "buttonInit3";
             this.buttonInit3.Size = new System.Drawing.Size(94, 24);
             this.buttonInit3.TabIndex = 14;
@@ -223,7 +223,7 @@
             // 
             this.buttonAstar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonAstar.Location = new System.Drawing.Point(448, 81);
-            this.buttonAstar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonAstar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAstar.Name = "buttonAstar";
             this.buttonAstar.Size = new System.Drawing.Size(86, 31);
             this.buttonAstar.TabIndex = 15;
@@ -313,7 +313,7 @@
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
             this.pictureBox3.Location = new System.Drawing.Point(283, 158);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(37, 374);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -349,10 +349,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxXInit);
             this.Controls.Add(this.textBoxYinit);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Projet IA 2022";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            //this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.buttonInit1_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
