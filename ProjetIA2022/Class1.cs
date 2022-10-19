@@ -8,7 +8,7 @@ namespace ProjetIA2022
 {
     public class Node2 : GenericNode 
     {
-        public int x;
+        public int x; //position actuelle de la node
         public int y;
 
         // Méthodes abstrates, donc à surcharger obligatoirement avec override dans une classe fille
@@ -66,15 +66,27 @@ namespace ProjetIA2022
             return 0;
         }
 
-        private double HCostEvnt1(){
-            return 0;
+        private double Norme(int xCurrent, int yCurrent, int xFin, int yFin)
+        {
+            return Math.Sqrt(Math.Pow(xFin - xCurrent, 2) + Math.Pow(yFin - yCurrent, 2));
         }
 
-        private double HCostEvnt2(){
+        private double HCostEvnt1()
+        {
+            double volDoiseau;
+            int xfin = Form1.xfinal;
+            int yfin = Form1.yfinal;
+            volDoiseau = Math.Sqrt(Math.Pow(xfin - x, 2) + Math.Pow(yfin - y, 2)); 
+            return volDoiseau;
+        }
+
+        private double HCostEvnt2()
+        {
             return 0;
         }
         
-        private double HCostEvnt3(){
+        private double HCostEvnt3()
+        {
             return 0;
         }
 
