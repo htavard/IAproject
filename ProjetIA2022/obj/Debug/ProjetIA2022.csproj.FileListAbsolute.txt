@@ -9,3 +9,14 @@ C:\Users\jsalotti-admin\Documents\enseignement\Ingénieurs\bases de l'intelligen
 C:\Users\jsalotti-admin\Documents\enseignement\Ingénieurs\bases de l'intelligence artificielle\2022 2023\ProjetIA2022\obj\Debug\ProjetIA2022.csproj.CoreCompileInputs.cache
 C:\Users\jsalotti-admin\Documents\enseignement\Ingénieurs\bases de l'intelligence artificielle\2022 2023\ProjetIA2022\obj\Debug\ProjetIA2022.exe
 C:\Users\jsalotti-admin\Documents\enseignement\Ingénieurs\bases de l'intelligence artificielle\2022 2023\ProjetIA2022\obj\Debug\ProjetIA2022.pdb
+C:\lhubacher\IAProject\ProjetIA2022\bin\Debug\ProjetIA2022.exe.config
+C:\lhubacher\IAProject\ProjetIA2022\bin\Debug\ProjetIA2022.exe
+C:\lhubacher\IAProject\ProjetIA2022\bin\Debug\ProjetIA2022.pdb
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.csproj.AssemblyReference.cache
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.csproj.SuggestedBindingRedirects.cache
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.Form1.resources
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.Properties.Resources.resources
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.csproj.GenerateResource.cache
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.csproj.CoreCompileInputs.cache
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.exe
+C:\lhubacher\IAProject\ProjetIA2022\obj\Debug\ProjetIA2022.pdb
