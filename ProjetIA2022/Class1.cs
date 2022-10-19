@@ -71,26 +71,14 @@ namespace ProjetIA2022
             return Math.Sqrt(Math.Pow(xFin - xCurrent, 2) + Math.Pow(yFin - yCurrent, 2));
         }
 
-        private double HCostEvnt1V1()
-        {
-            double volDoiseau;
-            int xfin = Form1.xfinal;
-            int yfin = Form1.yfinal;
-            volDoiseau = Math.Sqrt(Math.Pow(xfin - x, 2) + Math.Pow(yfin - y, 2)); 
-            return volDoiseau;
-        }
-        private double HCostEvnt1V2()
+        private double plusCourteSansMarec(int xCurrent, int yCurrent, int xFin, int yFin)
         {
             double heuris = 0;
-            int xCurrent = x;
-            int yCurrent = y;
-            int xfin = Form1.xfinal;
-            int yfin = Form1.yfinal;
-            while (xfin != xCurrent && yfin != yCurrent)
+            while (xFin != xCurrent && yFin != yCurrent)
             {
-                if (xfin < xCurrent) // x va a gauche, x reduit
+                if (xFin < xCurrent) // x va a gauche, x reduit
                 {
-                    if (yfin < yCurrent) //y remonte, y reduit
+                    if (yFin < yCurrent) //y remonte, y reduit
                     {
                         xCurrent -= 1;
                         yCurrent -= 1;
@@ -103,7 +91,7 @@ namespace ProjetIA2022
                 }
                 else
                 {
-                    if (yfin < yCurrent)
+                    if (yFin < yCurrent)
                     {
                         xCurrent += 1;
                         yCurrent -= 1;
@@ -116,11 +104,91 @@ namespace ProjetIA2022
                 }
                 heuris += Math.Sqrt(2);
             }
-            if (xCurrent == xfin)
-                heuris += Math.Abs(yfin - yCurrent);
+            if (xCurrent == xFin)
+                heuris += Math.Abs(yFin - yCurrent);
             else
-                heuris += Math.Abs(xfin - xCurrent);
+                heuris += Math.Abs(xFin - xCurrent);
             return heuris;
+        }
+
+        private double plusCourteAvecMarec(int xCurrent, int yCurrent, int xFin, int yFin)
+        {
+            double heuris = 0;
+            while (xFin != xCurrent && yFin != yCurrent)
+            {
+                if (xFin < xCurrent) // x va a gauche, x reduit
+                {
+                    if (yFin < yCurrent) //y remonte, y reduit
+                    {
+                        xCurrent -= 1;
+                        yCurrent -= 1;
+                    }
+                    else
+                    {
+                        xCurrent -= 1;
+                        yCurrent += 1;
+                    }
+                }
+                else
+                {
+                    if (yFin < yCurrent)
+                    {
+                        xCurrent += 1;
+                        yCurrent -= 1;
+                    }
+                    else
+                    {
+                        xCurrent += 1;
+                        yCurrent += 1;
+                    }
+                }
+                if (Form1.matrice[yCurrent, xCurrent] == -1)
+                    heuris += 3* Math.Sqrt(2);
+                else
+                    heuris +=Math.Sqrt(2);
+                
+            }
+            while (xCurrent != xFin || yCurrent!=yFin)
+            {
+                if(xCurrent!=xFin)
+                {
+                    if (xCurrent < xFin)
+                        xCurrent += 1;
+                    else
+                        xCurrent -= 1;
+                }
+                else
+                {
+                    if (yCurrent < yFin)
+                        yCurrent += 1;
+                    else
+                        yCurrent -= 1;
+                }
+                if (Form1.matrice[yCurrent, xCurrent] == -1)
+                    heuris += 3;
+                else
+                    heuris += 1;
+            }
+            return heuris;
+        }
+
+        private double HCostEvnt1V1()
+        {
+            double volDoiseau;
+            int xfin = Form1.xfinal;
+            int yfin = Form1.yfinal;
+            volDoiseau = Math.Sqrt(Math.Pow(xfin - x, 2) + Math.Pow(yfin - y, 2)); 
+            return volDoiseau;
+        }
+        private double HCostEvnt1V2()
+        {
+            
+            int xCurrent = x;
+            int yCurrent = y;
+            int xfin = Form1.xfinal;
+            int yfin = Form1.yfinal;
+            return plusCourteAvecMarec(xCurrent, yCurrent, xfin, yfin);
+            
         }
 
         private double HCostEvnt2()
