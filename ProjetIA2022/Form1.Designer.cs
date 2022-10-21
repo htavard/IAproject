@@ -116,7 +116,7 @@
             this.treeView1.Location = new System.Drawing.Point(866, 400);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(151, 160);
+            this.treeView1.Size = new System.Drawing.Size(521, 258);
             this.treeView1.TabIndex = 5;
             // 
             // buttonInit1
@@ -324,7 +324,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 616);
+            this.ClientSize = new System.Drawing.Size(1628, 799);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -353,7 +353,6 @@
             this.Name = "Form1";
             this.Text = "Projet IA 2022";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            //this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.buttonInit1_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
