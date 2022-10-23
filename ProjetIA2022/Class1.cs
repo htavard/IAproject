@@ -220,6 +220,47 @@ namespace ProjetIA2022
 
         private double HCostEvnt3()
         {
+            int xcurrent = x;
+            int ycurrent = y;
+            int xfinal = Form1.xfinal;
+            int yfinal = Form1.yfinal;
+            int xinter1 = 10;
+            int yinter1 = 0;
+            int xinter2 = 2;
+            int yinter2 = 6;
+            bool AppartientA(int[,]M , int[] T)
+            {
+                
+                for(int i = 0; i < M.GetLength(0); i++)
+                {
+                    bool res = true;
+                    for( int j = 0; j < M.GetLength(1); j++)
+                    {
+                        if (M[i,j] != T[j]) res = false;
+                    }
+                    if (res) return true;
+                }
+                return false;
+            }
+            if (xcurrent > xinter1 && xfinal > xinter1)
+            {
+                return Manhattan(xcurrent, ycurrent, xfinal, yfinal);
+            }
+            else
+            {
+                int[,] enclos = {
+                    {3 , 6}, {3 ,7 },
+                    {4 , 5}, {4 , 6}, {4 , 7}, {4 , 8},
+                    {5 , 4}, {5 , 5}, {5 , 6}, {5 , 7}, {5 , 8}, {5 , 9},
+                    {6 , 4}, {6 , 5}, { 6, 6}, {6 , 7}, {6 , 8}, { 6, 9},
+                    {7 , 5}, {7 , 6}, {7 , 7}, {7 , 8},
+                    {8 , 6}, {8 , 7},
+                };
+                if (AppartientA(enclos,new int[] { xcurrent, ycurrent }) )
+                {
+
+                }
+            }
             return 0;
         }
 
