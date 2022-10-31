@@ -142,12 +142,13 @@ namespace ProjetIA2022
                         yCurrent += 1;
                     }
                 }
-                if (Form1.matrice[yCurrent, xCurrent] == -1)
+                if (Form1.matrice[xCurrent, yCurrent] == -1)
                     heuris += 3* Math.Sqrt(2);
                 else
                     heuris +=Math.Sqrt(2);
                 
             }
+
             while (xCurrent != xFin || yCurrent!=yFin)
             {
                 if(xCurrent!=xFin)
@@ -187,7 +188,7 @@ namespace ProjetIA2022
             int yCurrent = y;
             int xfin = Form1.xfinal;
             int yfin = Form1.yfinal;
-            return plusCourteAvecMarec(xCurrent, yCurrent, xfin, yfin);
+            return plusCourteAvecMarec(xCurrent,yCurrent,xfin, yfin);
             
         }
 
