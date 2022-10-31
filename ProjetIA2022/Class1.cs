@@ -61,7 +61,7 @@ namespace ProjetIA2022
         public override double CalculeHCost(int envt)
         {
             if(envt == 1) return HCostEvnt1V2();
-            else if(envt == 2) return HCostEvnt2();
+            else if(envt == 2) return HCostEvnt2V3();
             else if(envt == 3) return HCostEvnt3();
             return 0;
         }
@@ -192,9 +192,28 @@ namespace ProjetIA2022
             
         }
 
-        private double HCostEvnt2()
+        private double HCostEvnt2V1()
         {
             return 0;
+        }
+        private double HCostEvnt2V2()
+        {
+            int xCurrent = x;
+            int yCurrent = y;
+            int xfin = Form1.xfinal;
+            int yfin = Form1.yfinal;
+            return plusCourteAvecMarec(xCurrent, yCurrent, xfin, yfin);
+        }
+        private double HCostEvnt2V3()
+        {
+            int xCurrent = x;
+            int yCurrent = y;
+            int xfin = Form1.xfinal;
+            int yfin = Form1.yfinal;
+            if ((xfin > 10 && xCurrent < 10) || (xfin < 10 && xCurrent > 10))
+                return plusCourteAvecMarec(xCurrent, yCurrent, 10, 8) + plusCourteAvecMarec(10, 8, xfin, yfin);
+            else
+                return plusCourteAvecMarec(xCurrent, yCurrent, xfin, yfin);
         }
         
         private double HCostEvnt3()
