@@ -95,7 +95,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        private double ShortestRoadWithPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        private double ShortestRoadWithPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)//fnction a revoir car imcomplète 
         {
             int diag = 0;
             int diagM = 0;
@@ -216,6 +216,7 @@ namespace ProjetIA2022
                     return Manhattan(xcurrent, ycurrent, xfinal, yfinal);
                 }
             }
+            return -1;
         }
 
         private double HCostEvnt3()
@@ -228,40 +229,80 @@ namespace ProjetIA2022
             int yinter1 = 0;
             int xinter2 = 2;
             int yinter2 = 6;
-            bool AppartientA(int[,]M , int[] T)
-            {
-                
-                for(int i = 0; i < M.GetLength(0); i++)
-                {
-                    bool res = true;
-                    for( int j = 0; j < M.GetLength(1); j++)
-                    {
-                        if (M[i,j] != T[j]) res = false;
-                    }
-                    if (res) return true;
-                }
-                return false;
-            }
-            if (xcurrent > xinter1 && xfinal > xinter1)
+
+            int[,] positionEnclos = new int[Form1.nblignes,Form1.nbcolonnes];
+
+            positionEnclos[3,6] = 1;
+            positionEnclos[3,7] = 1;
+
+            positionEnclos[4,5] = 1;
+            positionEnclos[4,6] = 1;
+            positionEnclos[4,7] = 1;
+            positionEnclos[4,8] = 1;
+
+            positionEnclos[5,4] = 1;
+            positionEnclos[5,5] = 1;
+            positionEnclos[5,6] = 1;
+            positionEnclos[5,7] = 1;
+            positionEnclos[5,8] = 1;
+            positionEnclos[5,9] = 1;
+
+            positionEnclos[6,4] = 1;
+            positionEnclos[6,5] = 1;
+            positionEnclos[6,6] = 1;
+            positionEnclos[6,7] = 1;
+            positionEnclos[6,8] = 1;
+            positionEnclos[6,9] = 1;
+
+            positionEnclos[8,6] = 1;
+            positionEnclos[8,7] = 1;
+
+            if (xcurrent > xinter1 && xfinal > xinter1) //point courrant et final à doite de la barrière
             {
                 return Manhattan(xcurrent, ycurrent, xfinal, yfinal);
             }
-            else
-            {
-                int[,] enclos = {
-                    {3 , 6}, {3 ,7 },
-                    {4 , 5}, {4 , 6}, {4 , 7}, {4 , 8},
-                    {5 , 4}, {5 , 5}, {5 , 6}, {5 , 7}, {5 , 8}, {5 , 9},
-                    {6 , 4}, {6 , 5}, { 6, 6}, {6 , 7}, {6 , 8}, { 6, 9},
-                    {7 , 5}, {7 , 6}, {7 , 7}, {7 , 8},
-                    {8 , 6}, {8 , 7},
-                };
-                if (AppartientA(enclos,new int[] { xcurrent, ycurrent }) )
-                {
-
+            else if(xcurrent < xinter1 && xfinal < xinter1){ //point courrant et final à gauche de la barrière
+                    if(positionEnclos[xcurrent,ycurrent]==1 && positionEnclo[xfinal,yfinal]==1){ //point courrant et final dans l'enclos
+                        return Manhattan(xcurrent,ycurrent,xfinal,yfinal);
+                    }
+                    else if(positionEnclos(xfinal,yfinal)==1){ //point final dans l'enclos, courrant hors
+                        int distInter = Manhattan(xcurrent,ycurrent,xinter2,yinter2);
+                        int distEnclos = Manhattan(xinter2,yinter2,xfinal,yfinal);
+                        return distInter + distEnclos;
+                    }
+                    else if(positionEnclos[xcurrent,ycurrent]==1){ //point courrant dans l'enclos , final hors
+                        int distOutEnclos = Manhattan(xcurrent,ycurrent,xinter2,yinter2);
+                        int distToFinal = Manhattan(xinter2,yinter2,xfinal,yfinal);
+                        return distOutEnclos + distToFinal;
+                    }
+                    else; return Manhattan(xcurrent,ycurrent,xfinal,yfinal); //point courrant et final hors de l'enclos
+            }
+            else if (xcurrent > xinter1 && xfinal < xinter1){ //point courrant à droite de la barrière, point fianl à gauche
+                int distInter = Manhattan(xcurrent,ycurrent,xinter1,yinter1);
+                if(positionEnclos(xfinal,yfinal)==1){ //point final dans l'enclos
+                        int distToEnclos = Manhattan(xinter1,yinter1,xinter2,yinter2);
+                        int distInEnclos = Manhattan(xinter2,yinter2,xfinal,yfinal);
+                        return distInter + distToEnclos + distInEnclos;
+                    }
+                else{ // point final hors de l'enclos
+                    int distFinal = Manhattan(xinter1,yinter1,xfinal,yfinal);
+                    return distInter + distFinal;
                 }
             }
-            return 0;
+            else if(xcurrent < xinter1 && xfinal > xinter1){ //point courrant à gauche de la barrière, point final à droite
+                if(positionEnclos[xcurrent,ycurrent]==1){ //point courrant dans l'enclos
+                    int distOutEnclos = Manhattan(xcurrent,ycurrent,xinter2,yinter2);
+                    int distToInter = Manhattan(xinter2,yinter2,xinter1,yinter1);
+                    int distToFinal = Manhattan(xinter1,yinter1,xfinal,yfinal);
+                    return distOutEnclos + distToInter + distToFinal;
+                }
+                else{ //point courrant hors de l'enclos
+                    int distToInter = Manhattan(xcurrent,ycurrent,xinter1,yinter1);
+                    int distToFinal = Manhattan(xinter1,yinter1,xfinal,yfinal);
+                    return distToInter + distToFinal;
+                }
+            }
+            return -1;
         }
 
         public override string ToString()
