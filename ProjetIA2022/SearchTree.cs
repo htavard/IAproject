@@ -133,7 +133,7 @@ namespace ProjetIA2022
                         // N2 est nouveau, MAJ et insertion dans les ouverts
                         N2.SetGCost(N.GetGCost() + N.GetArcCost(N2));
                         N2.SetNoeud_Parent(N);
-                        N2.calculCoutTotal(); // somme de GCost et HCost
+                        N2.calculCoutTotal(Node2.Manhattan); // somme de GCost et HCost
                         this.InsertNewNodeInOpenList(N2);
                     }
                 }

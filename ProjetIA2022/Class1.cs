@@ -19,7 +19,6 @@ namespace ProjetIA2022
 
             return (x == N2bis.x) && (y == N2bis.y);
         }
-
         public override double GetArcCost(GenericNode N2)
         {
             // Ici, N2 ne peut être qu'1 des 8 voisins, inutile de le vérifier
@@ -30,12 +29,10 @@ namespace ProjetIA2022
                 dist = dist * 3;
             return dist;
         }
-
         public override bool EndState()
         {
             return (x == Form1.xfinal) && (y == Form1.yfinal);
         }
-
         public override List<GenericNode> GetListSucc()
         {
             List<GenericNode> lsucc = new List<GenericNode>();
@@ -59,15 +56,7 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-        public override double CalculeHCost(int envt)
-        {
-            if (envt == 1) return HCostEvnt1();
-            else if (envt == 2) return HCostEvnt2();
-            else if (envt == 3) return HCostEvnt3();
-            return (0);
-        }
-
-        private double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        static double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             double dist = 0;
             while (xcurrent != xfinal || ycurrent != yfinal)
@@ -95,7 +84,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        private double ShortestRoadWithPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)//fnction a revoir car imcomplète 
+        static double ShortestRoadWithPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
         {
             int diag = 0;
             int diagM = 0;
@@ -144,7 +133,7 @@ namespace ProjetIA2022
             Console.WriteLine(x + "," + y + ", H : " + dist + "\n - diag : " + diag + " dont M : " + diagM + "\n _ lign : " + lign + " dont M : " + lignM);
             return dist;
         }
-        private int Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        static double Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             int distX(int xc, int yc, int xf, int yf)
             {
@@ -180,7 +169,20 @@ namespace ProjetIA2022
             int dist2 = distY(xcurrent, ycurrent, xfinal, yfinal) + distX(xcurrent, ycurrent, xfinal, yfinal);
             return Math.Min(dist1,dist2);
         }
-        private double HCostEvnt1()
+        
+        public override void calculCoutTotal(Func<int,int,int,int,double> EmpiricFunction)
+        {
+            HCost = CalculeHCost(Form1.environment,EmpiricFunction);
+            TotalCost = GCost + HCost;
+        }
+        public override double CalculeHCost(int envt,Func<int,int,int,int,double> EmpiricFunction)
+        {
+            if (envt == 1) return HCostEvnt1(EmpiricFunction);
+            else if (envt == 2) return HCostEvnt2(EmpiricFunction);
+            else if (envt == 3) return HCostEvnt3(EmpiricFunction);
+            return (0);
+        }
+        private double HCostEvnt1(Func<int,int,int,int,double> EmpiricFunction)
         {
             //première version primitive retournant un H qui correspond au temps minimum necessaire pour aller 
             //jusqu'à l'objectif avec un chemin choisi à vol d'oiseau sans tennir compte des obstacles ou ralentisseurs
@@ -188,11 +190,10 @@ namespace ProjetIA2022
             int ycurrent = y;
             int xfinal = Form1.xfinal;
             int yfinal = Form1.yfinal;
-            double dist = Manhattan(xcurrent, ycurrent, xfinal, yfinal);
+            double dist = EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
             return dist;
         }
-
-        private double HCostEvnt2()
+        private double HCostEvnt2(Func<int,int,int,int,double> EmpiricFunction)
         {
             int xcurrent = x;
             int ycurrent = y;
@@ -200,26 +201,25 @@ namespace ProjetIA2022
             int yfinal = Form1.yfinal;
             int xintermediaire = 10;
             int yintermedaire = 8;
-            double HCostInterFinal = Manhattan(xintermediaire, yintermedaire, xfinal, yfinal);
+            double HCostInterFinal = EmpiricFunction(xintermediaire, yintermedaire, xfinal, yfinal);
             if ((xcurrent < xintermediaire && xfinal < xintermediaire) || (xcurrent > xintermediaire && xfinal > xintermediaire))
             {
-                return Manhattan(xcurrent, ycurrent, xfinal, yfinal);
+                return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
             }
             else
             {
                 if (xcurrent < xintermediaire)
                 {
-                    return Manhattan(xcurrent, ycurrent, xintermediaire, yintermedaire) + HCostInterFinal;
+                    return EmpiricFunction(xcurrent, ycurrent, xintermediaire, yintermedaire) + HCostInterFinal;
                 }
                 else
                 {
-                    return Manhattan(xcurrent, ycurrent, xfinal, yfinal);
+                    return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
                 }
             }
             return -1;
         }
-
-        private double HCostEvnt3()
+        private double HCostEvnt3(Func<int,int,int,int,double> EmpiricFunction)
         {
             int xcurrent = x;
             int ycurrent = y;
@@ -259,46 +259,46 @@ namespace ProjetIA2022
 
             if (xcurrent > xinter1 && xfinal > xinter1) //point courrant et final à doite de la barrière
             {
-                return Manhattan(xcurrent, ycurrent, xfinal, yfinal);
+                return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
             }
             else if(xcurrent < xinter1 && xfinal < xinter1){ //point courrant et final à gauche de la barrière
                     if(positionEnclos[xcurrent,ycurrent]==1 && positionEnclo[xfinal,yfinal]==1){ //point courrant et final dans l'enclos
-                        return Manhattan(xcurrent,ycurrent,xfinal,yfinal);
+                        return EmpiricFunction(xcurrent,ycurrent,xfinal,yfinal);
                     }
                     else if(positionEnclos(xfinal,yfinal)==1){ //point final dans l'enclos, courrant hors
-                        int distInter = Manhattan(xcurrent,ycurrent,xinter2,yinter2);
-                        int distEnclos = Manhattan(xinter2,yinter2,xfinal,yfinal);
+                        int distInter = EmpiricFunction(xcurrent,ycurrent,xinter2,yinter2);
+                        int distEnclos = EmpiricFunction(xinter2,yinter2,xfinal,yfinal);
                         return distInter + distEnclos;
                     }
                     else if(positionEnclos[xcurrent,ycurrent]==1){ //point courrant dans l'enclos , final hors
-                        int distOutEnclos = Manhattan(xcurrent,ycurrent,xinter2,yinter2);
-                        int distToFinal = Manhattan(xinter2,yinter2,xfinal,yfinal);
+                        int distOutEnclos = EmpiricFunction(xcurrent,ycurrent,xinter2,yinter2);
+                        int distToFinal = EmpiricFunction(xinter2,yinter2,xfinal,yfinal);
                         return distOutEnclos + distToFinal;
                     }
-                    else; return Manhattan(xcurrent,ycurrent,xfinal,yfinal); //point courrant et final hors de l'enclos
+                    else; return EmpiricFunction(xcurrent,ycurrent,xfinal,yfinal); //point courrant et final hors de l'enclos
             }
             else if (xcurrent > xinter1 && xfinal < xinter1){ //point courrant à droite de la barrière, point fianl à gauche
-                int distInter = Manhattan(xcurrent,ycurrent,xinter1,yinter1);
+                int distInter = EmpiricFunction(xcurrent,ycurrent,xinter1,yinter1);
                 if(positionEnclos(xfinal,yfinal)==1){ //point final dans l'enclos
-                        int distToEnclos = Manhattan(xinter1,yinter1,xinter2,yinter2);
-                        int distInEnclos = Manhattan(xinter2,yinter2,xfinal,yfinal);
+                        int distToEnclos = EmpiricFunction(xinter1,yinter1,xinter2,yinter2);
+                        int distInEnclos = EmpiricFunction(xinter2,yinter2,xfinal,yfinal);
                         return distInter + distToEnclos + distInEnclos;
                     }
                 else{ // point final hors de l'enclos
-                    int distFinal = Manhattan(xinter1,yinter1,xfinal,yfinal);
+                    int distFinal = EmpiricFunction(xinter1,yinter1,xfinal,yfinal);
                     return distInter + distFinal;
                 }
             }
             else if(xcurrent < xinter1 && xfinal > xinter1){ //point courrant à gauche de la barrière, point final à droite
                 if(positionEnclos[xcurrent,ycurrent]==1){ //point courrant dans l'enclos
-                    int distOutEnclos = Manhattan(xcurrent,ycurrent,xinter2,yinter2);
-                    int distToInter = Manhattan(xinter2,yinter2,xinter1,yinter1);
-                    int distToFinal = Manhattan(xinter1,yinter1,xfinal,yfinal);
+                    int distOutEnclos = EmpiricFunction(xcurrent,ycurrent,xinter2,yinter2);
+                    int distToInter = EmpiricFunction(xinter2,yinter2,xinter1,yinter1);
+                    int distToFinal = EmpiricFunction(xinter1,yinter1,xfinal,yfinal);
                     return distOutEnclos + distToInter + distToFinal;
                 }
                 else{ //point courrant hors de l'enclos
-                    int distToInter = Manhattan(xcurrent,ycurrent,xinter1,yinter1);
-                    int distToFinal = Manhattan(xinter1,yinter1,xfinal,yfinal);
+                    int distToInter = EmpiricFunction(xcurrent,ycurrent,xinter1,yinter1);
+                    int distToFinal = EmpiricFunction(xinter1,yinter1,xfinal,yfinal);
                     return distToInter + distToFinal;
                 }
             }

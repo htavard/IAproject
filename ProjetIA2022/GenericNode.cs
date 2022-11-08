@@ -61,11 +61,7 @@ namespace ProjetIA2022
             ParentNode = null;
         }
 
-        public void calculCoutTotal()
-        {
-            HCost = CalculeHCost(Form1.environment);
-            TotalCost = GCost + HCost;
-        }
+        abstract public void calculCoutTotal();
 
         public void RecalculeCoutTotal()
         {
