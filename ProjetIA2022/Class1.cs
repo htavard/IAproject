@@ -66,7 +66,7 @@ namespace ProjetIA2022
                 else if (xcurrent - xfinal > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
                 if (ycurrent - yfinal < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
                 else if (ycurrent - yfinal > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
-                dist += Math.Pow(2, 2);
+                dist += Math.Sqrt(2);
             }
             while (xcurrent != xfinal && ycurrent != yfinal)
             {
@@ -84,7 +84,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        static double ShortestRoadWithPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
+        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
         {
             int diag = 0;
             int diagM = 0;
@@ -103,12 +103,10 @@ namespace ProjetIA2022
                 //Valeur distance si perturbation ou non
                 if (Form1.matrice[xcurrent, ycurrent] == -1)
                 {
-                    dist += Math.Pow(2, 2) * 3;
+                    dist += Math.Sqrt(2) * 3;
                     diagM += 1; //Avec Perturbation
                 }
-                else dist += Math.Pow(2, 2);
-
-
+                else dist += Math.Sqrt(2);
             }
             while (xcurrent != xfinal || ycurrent != yfinal)
             {
@@ -132,6 +130,83 @@ namespace ProjetIA2022
             }
             Console.WriteLine(x + "," + y + ", H : " + dist + "\n - diag : " + diag + " dont M : " + diagM + "\n _ lign : " + lign + " dont M : " + lignM);
             return dist;
+        }
+        static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
+            int[] cible = new int{-1,-1}; 
+            double dist = 0;
+            if(ycurrent > yfinal){//haut
+                if(xcurrent > xfinal){ //haut-droit
+                    if(xcurrent-ycurrent > 0){ //au dessus de f(x)=x
+                        cible = new int{xcurrent,xcurrent}; 
+                    }
+                    else{ // en dessous de f(x)=x
+                        cible = new int{ycurrent,ycurrent};
+                    }
+                }
+                else{ //if xcurrent < xfinal //haut-gauche 
+                    if(ycurrent+xcurrent > 0){// au dessus de f(x)=-x 
+                        cible = new int{xcurrent,-xcurrent};
+                    }
+                    else{// en dessous de f(x)=-x
+                        cible = new int{-ycurrent,ycurrent};
+                    }
+                }
+            }
+            else{//bas
+                if(xcurrent > xfinal){ //bas-droit
+                    if(xcurrent+ycurrent > 0){ //au dessus de f(x)=-x
+                        cible = new int{-ycurrent,ycurrent}; 
+                    }
+                    else{ // en dessous de f(x)=-x
+                        cible = new int{xcurrent,-xcurrent};
+                    }
+                }
+                else{ //if xcurrent < xfinal //bas-gauche 
+                    if(xcurrent-ycurrent > 0){// au dessus de f(x)=x 
+                        cible = new int{ycurrent,ycurrent};
+                    }
+                    else{// en dessous de f(x)=-x
+                        cible = new int{xcurrent,xcurrent};
+                    }
+                }
+            }
+            while(xcurrent != cible[0] || ycurrent != cible[1])
+            {
+                if (xcurrent != cible[0])
+                {
+                    if (xcurrent - cible[0] < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                    else if (xcurrent - cible[0] > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                }
+                if (ycurrent != cible[1])
+                {
+                    if (ycurrent - cible[1] < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                    else if (ycurrent - cible[1] > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                }
+                if (Form1.matrice[xcurrent, ycurrent] == -1)
+                {
+                    dist += 3; //Avec Perturbation
+                }
+                else dist += 1;
+            }
+            while (xcurrent != xfinal || ycurrent != yfinal)
+            {
+                //Déplacement selon x
+                if (xcurrent - xfinal < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                else if (xcurrent - xfinal > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                //Déplacement selon y
+                if (ycurrent - yfinal < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                else if (ycurrent - yfinal > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                //Valeur distance si perturbation ou non
+                if (Form1.matrice[xcurrent, ycurrent] == -1)
+                {
+                    dist += Math.Sqrt(2) * 3;
+                }
+                else dist += Math.Sqrt(2);            
+            }
+            return dist;
+        }
+        static double DiamondPath(int xcurrent , int ycurrent, int xfinal , int yfinal){
+            return Math.Min(DiamondPathLignFirst(xcurrent,ycurrent,xfinal,yfinal),DiamondPathLignNext(xcurrent,ycurrent,xfinal,yfinal));
         }
         static double Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
