@@ -19,7 +19,6 @@ namespace ProjetIA2022
         {
             return L_Fermes.Count;
         }
-
         private GenericNode ChercheNodeDansFermes(GenericNode N2)
         {
             int i = 0;
@@ -133,7 +132,8 @@ namespace ProjetIA2022
                         // N2 est nouveau, MAJ et insertion dans les ouverts
                         N2.SetGCost(N.GetGCost() + N.GetArcCost(N2));
                         N2.SetNoeud_Parent(N);
-                        N2.calculCoutTotal(Node2.Manhattan); // somme de GCost et HCost
+                        Func<int, int, int, int, double> EmpiricFunction = Node2.Manhattan;
+                        N2.calculCoutTotal(EmpiricFunction); // somme de GCost et HCost
                         this.InsertNewNodeInOpenList(N2);
                     }
                 }

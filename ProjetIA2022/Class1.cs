@@ -56,7 +56,7 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-        static double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             double dist = 0;
             while (xcurrent != xfinal || ycurrent != yfinal)
@@ -84,7 +84,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
+        double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
         {
             int diag = 0;
             int diagM = 0;
@@ -128,45 +128,44 @@ namespace ProjetIA2022
                 }
                 else dist += 1;
             }
-            Console.WriteLine(x + "," + y + ", H : " + dist + "\n - diag : " + diag + " dont M : " + diagM + "\n _ lign : " + lign + " dont M : " + lignM);
             return dist;
         }
-        static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
-            int[] cible = new int{-1,-1}; 
+        double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
+            int[] cible = new int[] {-1,-1}; 
             double dist = 0;
             if(ycurrent > yfinal){//haut
                 if(xcurrent > xfinal){ //haut-droit
                     if(xcurrent-ycurrent > 0){ //au dessus de f(x)=x
-                        cible = new int{xcurrent,xcurrent}; 
+                        cible = new int[] {xcurrent,xcurrent}; 
                     }
                     else{ // en dessous de f(x)=x
-                        cible = new int{ycurrent,ycurrent};
+                        cible = new int[] {ycurrent,ycurrent};
                     }
                 }
                 else{ //if xcurrent < xfinal //haut-gauche 
                     if(ycurrent+xcurrent > 0){// au dessus de f(x)=-x 
-                        cible = new int{xcurrent,-xcurrent};
+                        cible = new int[] {xcurrent,-xcurrent};
                     }
                     else{// en dessous de f(x)=-x
-                        cible = new int{-ycurrent,ycurrent};
+                        cible = new int[] { -ycurrent,ycurrent};
                     }
                 }
             }
             else{//bas
                 if(xcurrent > xfinal){ //bas-droit
                     if(xcurrent+ycurrent > 0){ //au dessus de f(x)=-x
-                        cible = new int{-ycurrent,ycurrent}; 
+                        cible = new int[] { -ycurrent,ycurrent}; 
                     }
                     else{ // en dessous de f(x)=-x
-                        cible = new int{xcurrent,-xcurrent};
+                        cible = new int[] { xcurrent,-xcurrent};
                     }
                 }
                 else{ //if xcurrent < xfinal //bas-gauche 
                     if(xcurrent-ycurrent > 0){// au dessus de f(x)=x 
-                        cible = new int{ycurrent,ycurrent};
+                        cible = new int[] { ycurrent,ycurrent};
                     }
                     else{// en dessous de f(x)=-x
-                        cible = new int{xcurrent,xcurrent};
+                        cible = new int[] { xcurrent,xcurrent};
                     }
                 }
             }
@@ -205,10 +204,10 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        static double DiamondPath(int xcurrent , int ycurrent, int xfinal , int yfinal){
+        public double DiamondPath(int xcurrent , int ycurrent, int xfinal , int yfinal){
             return Math.Min(DiamondPathLignFirst(xcurrent,ycurrent,xfinal,yfinal),DiamondPathLignNext(xcurrent,ycurrent,xfinal,yfinal));
         }
-        static double Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        public static double Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             int distX(int xc, int yc, int xf, int yf)
             {
@@ -245,7 +244,7 @@ namespace ProjetIA2022
             return Math.Min(dist1,dist2);
         }
         
-        public override void calculCoutTotal(Func<int,int,int,int,double> EmpiricFunction)
+        public override void calculCoutTotal(Func<int, int,int,int, double> EmpiricFunction)
         {
             HCost = CalculeHCost(Form1.environment,EmpiricFunction);
             TotalCost = GCost + HCost;
@@ -292,7 +291,6 @@ namespace ProjetIA2022
                     return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
                 }
             }
-            return -1;
         }
         private double HCostEvnt3(Func<int,int,int,int,double> EmpiricFunction)
         {
@@ -336,44 +334,58 @@ namespace ProjetIA2022
             {
                 return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
             }
-            else if(xcurrent < xinter1 && xfinal < xinter1){ //point courrant et final à gauche de la barrière
-                    if(positionEnclos[xcurrent,ycurrent]==1 && positionEnclo[xfinal,yfinal]==1){ //point courrant et final dans l'enclos
-                        return EmpiricFunction(xcurrent,ycurrent,xfinal,yfinal);
-                    }
-                    else if(positionEnclos(xfinal,yfinal)==1){ //point final dans l'enclos, courrant hors
-                        int distInter = EmpiricFunction(xcurrent,ycurrent,xinter2,yinter2);
-                        int distEnclos = EmpiricFunction(xinter2,yinter2,xfinal,yfinal);
-                        return distInter + distEnclos;
-                    }
-                    else if(positionEnclos[xcurrent,ycurrent]==1){ //point courrant dans l'enclos , final hors
-                        int distOutEnclos = EmpiricFunction(xcurrent,ycurrent,xinter2,yinter2);
-                        int distToFinal = EmpiricFunction(xinter2,yinter2,xfinal,yfinal);
-                        return distOutEnclos + distToFinal;
-                    }
-                    else; return EmpiricFunction(xcurrent,ycurrent,xfinal,yfinal); //point courrant et final hors de l'enclos
+            else if (xcurrent < xinter1 && xfinal < xinter1)
+            { //point courrant et final à gauche de la barrière
+                if (positionEnclos[xcurrent, ycurrent] == 1 && positionEnclos[xfinal, yfinal] == 1)
+                { //point courrant et final dans l'enclos
+                    return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
+                }
+                else if (positionEnclos[xfinal, yfinal] == 1)
+                { //point final dans l'enclos, courrant hors
+                    double distInter = EmpiricFunction(xcurrent, ycurrent, xinter2, yinter2);
+                    double distEnclos = EmpiricFunction(xinter2, yinter2, xfinal, yfinal);
+                    return distInter + distEnclos;
+                }
+                else if (positionEnclos[xcurrent, ycurrent] == 1)
+                { //point courrant dans l'enclos , final hors
+                    double distOutEnclos = EmpiricFunction(xcurrent, ycurrent, xinter2, yinter2);
+                    double distToFinal = EmpiricFunction(xinter2, yinter2, xfinal, yfinal);
+                    return distOutEnclos + distToFinal;
+                }
+                else
+                {
+                    return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal); //point courrant et final hors de l'enclos
+                }
             }
-            else if (xcurrent > xinter1 && xfinal < xinter1){ //point courrant à droite de la barrière, point fianl à gauche
-                int distInter = EmpiricFunction(xcurrent,ycurrent,xinter1,yinter1);
-                if(positionEnclos(xfinal,yfinal)==1){ //point final dans l'enclos
-                        int distToEnclos = EmpiricFunction(xinter1,yinter1,xinter2,yinter2);
-                        int distInEnclos = EmpiricFunction(xinter2,yinter2,xfinal,yfinal);
-                        return distInter + distToEnclos + distInEnclos;
-                    }
-                else{ // point final hors de l'enclos
-                    int distFinal = EmpiricFunction(xinter1,yinter1,xfinal,yfinal);
+
+            else if (xcurrent > xinter1 && xfinal < xinter1)
+            { //point courrant à droite de la barrière, point fianl à gauche
+                double distInter = EmpiricFunction(xcurrent, ycurrent, xinter1, yinter1);
+                if (positionEnclos[xfinal, yfinal] == 1)
+                { //point final dans l'enclos
+                    double distToEnclos = EmpiricFunction(xinter1, yinter1, xinter2, yinter2);
+                    double distInEnclos = EmpiricFunction(xinter2, yinter2, xfinal, yfinal);
+                    return distInter + distToEnclos + distInEnclos;
+                }
+                else
+                { // point final hors de l'enclos
+                    double distFinal = EmpiricFunction(xinter1, yinter1, xfinal, yfinal);
                     return distInter + distFinal;
                 }
             }
-            else if(xcurrent < xinter1 && xfinal > xinter1){ //point courrant à gauche de la barrière, point final à droite
-                if(positionEnclos[xcurrent,ycurrent]==1){ //point courrant dans l'enclos
-                    int distOutEnclos = EmpiricFunction(xcurrent,ycurrent,xinter2,yinter2);
-                    int distToInter = EmpiricFunction(xinter2,yinter2,xinter1,yinter1);
-                    int distToFinal = EmpiricFunction(xinter1,yinter1,xfinal,yfinal);
+            else if (xcurrent < xinter1 && xfinal > xinter1)
+            { //point courrant à gauche de la barrière, point final à droite
+                if (positionEnclos[xcurrent, ycurrent] == 1)
+                { //point courrant dans l'enclos
+                    double distOutEnclos = EmpiricFunction(xcurrent, ycurrent, xinter2, yinter2);
+                    double distToInter = EmpiricFunction(xinter2, yinter2, xinter1, yinter1);
+                    double distToFinal = EmpiricFunction(xinter1, yinter1, xfinal, yfinal);
                     return distOutEnclos + distToInter + distToFinal;
                 }
-                else{ //point courrant hors de l'enclos
-                    int distToInter = EmpiricFunction(xcurrent,ycurrent,xinter1,yinter1);
-                    int distToFinal = EmpiricFunction(xinter1,yinter1,xfinal,yfinal);
+                else
+                { //point courrant hors de l'enclos
+                    double distToInter = EmpiricFunction(xcurrent, ycurrent, xinter1, yinter1);
+                    double distToFinal = EmpiricFunction(xinter1, yinter1, xfinal, yfinal);
                     return distToInter + distToFinal;
                 }
             }
