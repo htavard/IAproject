@@ -10,7 +10,7 @@ namespace ProjetIA2022
     {
         public List<GenericNode> L_Ouverts= new List<GenericNode>();
         public List<GenericNode> L_Fermes = new List<GenericNode>();
-        Func<int, int, int, int, double> EmpiricFunction = Node2.DiamondPath;
+        static public Func<int, int, int, int, double> EmpiricFunction;
 
         public int CountInOpenList()
         {
