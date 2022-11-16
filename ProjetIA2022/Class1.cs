@@ -84,7 +84,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
+        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
         {
             int diag = 0;
             int diagM = 0;
@@ -130,45 +130,48 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
+        static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
             int[] cible = new int[] {-1,-1}; 
             double dist = 0;
-            if(ycurrent > yfinal){//haut
+            if(ycurrent < yfinal){//haut
                 if(xcurrent > xfinal){ //haut-droit
-                    if(xcurrent-ycurrent > 0){ //au dessus de f(x)=x
-                        cible = new int[] {xcurrent,xcurrent}; 
+                    if(xcurrent < ycurrent){ //au dessus de f(x)=x
+                        cible = new int[] {xfinal-xcurrent, yfinal-xcurrent}; 
                     }
                     else{ // en dessous de f(x)=x
-                        cible = new int[] {ycurrent,ycurrent};
+                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent };
                     }
                 }
                 else{ //if xcurrent < xfinal //haut-gauche 
-                    if(ycurrent+xcurrent > 0){// au dessus de f(x)=-x 
-                        cible = new int[] {xcurrent,-xcurrent};
+                    if( -xcurrent < ycurrent){// au dessus de f(x)=-x 
+                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent};
                     }
                     else{// en dessous de f(x)=-x
-                        cible = new int[] { -ycurrent,ycurrent};
+                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
                     }
                 }
             }
             else{//bas
                 if(xcurrent > xfinal){ //bas-droit
-                    if(xcurrent+ycurrent > 0){ //au dessus de f(x)=-x
-                        cible = new int[] { -ycurrent,ycurrent}; 
+                    if(xcurrent < ycurrent){ //au dessus de f(x)=-x
+                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent }; 
                     }
                     else{ // en dessous de f(x)=-x
-                        cible = new int[] { xcurrent,-xcurrent};
+                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent };
                     }
                 }
                 else{ //if xcurrent < xfinal //bas-gauche 
-                    if(xcurrent-ycurrent > 0){// au dessus de f(x)=x 
-                        cible = new int[] { ycurrent,ycurrent};
+                    if(-xcurrent<ycurrent){// au dessus de f(x)=x 
+                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
                     }
                     else{// en dessous de f(x)=-x
-                        cible = new int[] { xcurrent,xcurrent};
+                        cible = new int[] { xfinal-xcurrent, yfinal-xcurrent };
                     }
                 }
             }
+            Console.WriteLine("depart : [" + xcurrent+ "," + ycurrent + "]\n");
+            Console.WriteLine("final : [" + xfinal +"," + yfinal + "]\n");
+            Console.WriteLine("cible : [" + cible[0]+ "," + cible[1] + "]\n");
             while(xcurrent != cible[0] || ycurrent != cible[1])
             {
                 if (xcurrent != cible[0])
@@ -204,8 +207,8 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        public double DiamondPath(int xcurrent , int ycurrent, int xfinal , int yfinal){
-            return Math.Min(DiamondPathLignFirst(xcurrent,ycurrent,xfinal,yfinal),DiamondPathLignNext(xcurrent,ycurrent,xfinal,yfinal));
+        public static double DiamondPath(int xcurrent , int ycurrent, int xfinal , int yfinal){
+            return Math.Min(DiamondPathLignFirst(xcurrent, ycurrent, xfinal, yfinal), DiamondPathLignNext(xcurrent, ycurrent, xfinal, yfinal));
         }
         public static double Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
@@ -258,8 +261,6 @@ namespace ProjetIA2022
         }
         private double HCostEvnt1(Func<int,int,int,int,double> EmpiricFunction)
         {
-            //première version primitive retournant un H qui correspond au temps minimum necessaire pour aller 
-            //jusqu'à l'objectif avec un chemin choisi à vol d'oiseau sans tennir compte des obstacles ou ralentisseurs
             int xcurrent = x;
             int ycurrent = y;
             int xfinal = Form1.xfinal;
