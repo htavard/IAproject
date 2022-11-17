@@ -133,39 +133,56 @@ namespace ProjetIA2022
         static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
             int[] cible = new int[] {-1,-1}; 
             double dist = 0;
-            if(ycurrent < yfinal){//haut
-                if(xcurrent > xfinal){ //haut-droit
-                    if(xcurrent < ycurrent){ //au dessus de f(x)=x
-                        cible = new int[] {xfinal-xcurrent, yfinal-xcurrent}; 
+            int xrel = xcurrent - yfinal;
+            int yrel = ycurrent - yfinal;
+            //nouveau repère centrée sur le point final -> point relatif 
+            if(yrel < 0){//haut sur la schéma -> zone 1 à 4
+                if(xrel < 0){ //haut-gauche -> zone 1 et 2
+                    if(xrel < yrel){ 
+                        //au dessus de f(x)=x -> zone 1 
+                        cible = new int[] {xfinal +yrel ,yfinal + yrel}; 
                     }
-                    else{ // en dessous de f(x)=x
-                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent };
+                    else
+                    { 
+                        // en dessous de f(x)=x -> zone 2
+                        cible = new int[] { xfinal + xrel, yfinal + xrel};
                     }
                 }
-                else{ //if xcurrent < xfinal //haut-gauche 
-                    if( -xcurrent < ycurrent){// au dessus de f(x)=-x 
-                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent};
+                else{ //if xcurrent < xfinal //haut-droit -> zone 3 et 4 
+                    if(-xrel > yrel)
+                    {
+                        // en dessous de f(x)=-x -> zone 3
+                        cible = new int[] { xfinal + xrel, yfinal - xrel};
                     }
-                    else{// en dessous de f(x)=-x
-                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
+                    else
+                    {
+                        // au dessus de f(x)=-x -> zone 4
+                        cible = new int[] { xfinal - yrel, yfinal + yrel};
                     }
                 }
             }
-            else{//bas
-                if(xcurrent > xfinal){ //bas-droit
-                    if(xcurrent < ycurrent){ //au dessus de f(x)=-x
-                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent }; 
+            else{//bas //yrel > 0 -> zone 5 à 8
+                if(xrel > 0){ //bas-droit -> zone 5 et 6
+                    if(xrel > yrel)
+                    { 
+                        //en dessous de f(x)=x -> zone 5
+                        cible = new int[] { xfinal + yrel, yfinal + yrel};
                     }
-                    else{ // en dessous de f(x)=-x
-                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent };
+                    else
+                    { // au dessus de f(x)=x -> zone 6
+                        cible = new int[] { xfinal + xrel, yfinal + xrel};
                     }
                 }
-                else{ //if xcurrent < xfinal //bas-gauche 
-                    if(-xcurrent<ycurrent){// au dessus de f(x)=x 
-                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
+                else{ //if xcurrent < xfinal //bas-gauche -> zone 7 et 8
+                    if(-xrel<yrel)
+                    {
+                        // au dessus de f(x)=-x -> zone 7
+                        cible = new int[] { xfinal + xrel, yfinal - xrel};
                     }
-                    else{// en dessous de f(x)=-x
-                        cible = new int[] { xfinal-xcurrent, yfinal-xcurrent };
+                    else
+                    {
+                        // en dessous de f(x)=-x -> zone 8
+                        cible = new int[] { xfinal - yrel, yfinal + yrel};
                     }
                 }
             }
