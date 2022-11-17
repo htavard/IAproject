@@ -56,7 +56,7 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-        double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        double PrimitiveEuristic(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             double dist = 0;
             while (xcurrent != xfinal || ycurrent != yfinal)
@@ -84,7 +84,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
+        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal) 
         {
             int diag = 0;
             int diagM = 0;
@@ -264,6 +264,11 @@ namespace ProjetIA2022
             return Math.Min(dist1,dist2);
         }
         
+        public static double BestEuristic(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        {
+            return Math.Min(Manhattan(xcurrent, ycurrent, xfinal, yfinal), DiamondPath(xcurrent, ycurrent, xfinal, yfinal));
+        }
+
         public override void calculCoutTotal(Func<int, int,int,int, double> EmpiricFunction)
         {
             HCost = CalculeHCost(Form1.environment,EmpiricFunction);
