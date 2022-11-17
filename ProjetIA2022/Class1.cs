@@ -56,7 +56,7 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-        double PrimitiveEuristic(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        static public double PrimitiveEuristic(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             double dist = 0;
             while (xcurrent != xfinal || ycurrent != yfinal)

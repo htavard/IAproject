@@ -237,5 +237,16 @@ namespace ProjetIA2022
             SearchTree.EmpiricFunction = Node2.DiamondPath;
         }
 
+        private void BestEuriBtn_Click(object sender, EventArgs e)
+        {
+            EmpiricFunctionLabel.Text = "Manhattan + Diamond";
+            SearchTree.EmpiricFunction = Node2.BestEuristic;
+        }
+
+        private void PrimitiveFunctionBtn_Click(object sender, EventArgs e)
+        {
+            EmpiricFunctionLabel.Text = "Primitive Function";
+            SearchTree.EmpiricFunction = Node2.PrimitiveEuristic;
+        }
     }
 }
