@@ -224,5 +224,18 @@ namespace ProjetIA2022
             load_environment("environnement3.txt");
             buttonAstar.Enabled = true;
         }
+
+        private void Manhattan_Click(object sender, EventArgs e)
+        {
+            EmpiricFunctionLabel.Text = "Manhattan";
+            SearchTree.EmpiricFunction = Node2.Manhattan;
+        }
+
+        private void Diamond_Click(object sender, EventArgs e)
+        {
+            EmpiricFunctionLabel.Text = "Diamond";
+            SearchTree.EmpiricFunction = Node2.DiamondPath;
+        }
+
     }
 }

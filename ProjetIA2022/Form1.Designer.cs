@@ -53,6 +53,11 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.Manhattan = new System.Windows.Forms.Button();
+            this.Diamond = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.EmpiricFunctionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -116,7 +121,7 @@
             this.treeView1.Location = new System.Drawing.Point(866, 400);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(151, 160);
+            this.treeView1.Size = new System.Drawing.Size(521, 258);
             this.treeView1.TabIndex = 5;
             // 
             // buttonInit1
@@ -320,11 +325,63 @@
             this.pictureBox3.TabIndex = 23;
             this.pictureBox3.TabStop = false;
             // 
+            // Manhattan
+            // 
+            this.Manhattan.Location = new System.Drawing.Point(25, 266);
+            this.Manhattan.Name = "Manhattan";
+            this.Manhattan.Size = new System.Drawing.Size(75, 23);
+            this.Manhattan.TabIndex = 24;
+            this.Manhattan.Text = "Manhattan";
+            this.Manhattan.UseVisualStyleBackColor = true;
+            this.Manhattan.Click += new System.EventHandler(this.Manhattan_Click);
+            // 
+            // Diamond
+            // 
+            this.Diamond.Location = new System.Drawing.Point(149, 266);
+            this.Diamond.Name = "Diamond";
+            this.Diamond.Size = new System.Drawing.Size(75, 23);
+            this.Diamond.TabIndex = 25;
+            this.Diamond.Text = "Diamond";
+            this.Diamond.UseVisualStyleBackColor = true;
+            this.Diamond.Click += new System.EventHandler(this.Diamond_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 238);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(152, 13);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Choose your empiric function : ";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 311);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(91, 13);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "Current function : ";
+            // 
+            // EmpiricFunctionLabel
+            // 
+            this.EmpiricFunctionLabel.AutoSize = true;
+            this.EmpiricFunctionLabel.Location = new System.Drawing.Point(109, 311);
+            this.EmpiricFunctionLabel.Name = "EmpiricFunctionLabel";
+            this.EmpiricFunctionLabel.Size = new System.Drawing.Size(33, 13);
+            this.EmpiricFunctionLabel.TabIndex = 28;
+            this.EmpiricFunctionLabel.Text = "None";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 616);
+            this.ClientSize = new System.Drawing.Size(1628, 799);
+            this.Controls.Add(this.EmpiricFunctionLabel);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.Diamond);
+            this.Controls.Add(this.Manhattan);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -353,7 +410,6 @@
             this.Name = "Form1";
             this.Text = "Projet IA 2022";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            //this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.buttonInit1_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -389,6 +445,11 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button Manhattan;
+        private System.Windows.Forms.Button Diamond;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label EmpiricFunctionLabel;
     }
 }
 

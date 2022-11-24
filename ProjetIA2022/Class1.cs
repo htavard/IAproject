@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.LinkLabel;
 
 namespace ProjetIA2022
 {
-    public class Node2 : GenericNode 
+    public class Node2 : GenericNode
     {
-        public int x; //position actuelle de la node
+        public int x;
         public int y;
 
         // Méthodes abstrates, donc à surcharger obligatoirement avec override dans une classe fille
@@ -18,28 +19,25 @@ namespace ProjetIA2022
 
             return (x == N2bis.x) && (y == N2bis.y);
         }
-
         public override double GetArcCost(GenericNode N2)
         {
             // Ici, N2 ne peut être qu'1 des 8 voisins, inutile de le vérifier
             Node2 N2bis = (Node2)N2;
-            double dist = Math.Sqrt((N2bis.x-x)*(N2bis.x-x)+(N2bis.y-y)*(N2bis.y-y));
+            double dist = Math.Sqrt((N2bis.x - x) * (N2bis.x - x) + (N2bis.y - y) * (N2bis.y - y));
             if (Form1.matrice[x, y] == -1)
                 // On triple le coût car on est dans un marécage
-                dist = dist*3;
+                dist = dist * 3;
             return dist;
         }
-
         public override bool EndState()
         {
             return (x == Form1.xfinal) && (y == Form1.yfinal);
         }
-
         public override List<GenericNode> GetListSucc()
         {
             List<GenericNode> lsucc = new List<GenericNode>();
 
-            for (int dx=-1; dx <= 1; dx++)
+            for (int dx = -1; dx <= 1; dx++)
             {
                 for (int dy = -1; dy <= 1; dy++)
                 {
@@ -58,152 +56,346 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-        public override double CalculeHCost(int envt)
+        double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
-            if(envt == 1) return HCostEvnt1V2();
-            else if(envt == 2) return HCostEvnt2();
-            else if(envt == 3) return HCostEvnt3();
-            return 0;
-        }
-
-        private double Norme(int xCurrent, int yCurrent, int xFin, int yFin)
-        {
-            return Math.Sqrt(Math.Pow(xFin - xCurrent, 2) + Math.Pow(yFin - yCurrent, 2));
-        }
-
-        private double plusCourteSansMarec(int xCurrent, int yCurrent, int xFin, int yFin)
-        {
-            double heuris = 0;
-            while (xFin != xCurrent && yFin != yCurrent)
+            double dist = 0;
+            while (xcurrent != xfinal || ycurrent != yfinal)
             {
-                if (xFin < xCurrent) // x va a gauche, x reduit
-                {
-                    if (yFin < yCurrent) //y remonte, y reduit
-                    {
-                        xCurrent -= 1;
-                        yCurrent -= 1;
-                    }
-                    else
-                    {
-                        xCurrent -= 1;
-                        yCurrent += 1;
-                    }
-                }
-                else
-                {
-                    if (yFin < yCurrent)
-                    {
-                        xCurrent += 1;
-                        yCurrent -= 1;
-                    }
-                    else
-                    {
-                        xCurrent += 1;
-                        yCurrent += 1;
-                    }
-                }
-                heuris += Math.Sqrt(2);
+                //Déplacement selon x
+                if (xcurrent - xfinal < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                else if (xcurrent - xfinal > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                if (ycurrent - yfinal < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                else if (ycurrent - yfinal > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                dist += Math.Sqrt(2);
             }
-            if (xCurrent == xFin)
-                heuris += Math.Abs(yFin - yCurrent);
-            else
-                heuris += Math.Abs(xFin - xCurrent);
-            return heuris;
-        }
-
-        private double plusCourteAvecMarec(int xCurrent, int yCurrent, int xFin, int yFin)
-        {
-            double heuris = 0;
-            while (xFin != xCurrent && yFin != yCurrent)
+            while (xcurrent != xfinal && ycurrent != yfinal)
             {
-                if (xFin < xCurrent) // x va a gauche, x reduit
+                if (xcurrent != xfinal)
                 {
-                    if (yFin < yCurrent) //y remonte, y reduit
-                    {
-                        xCurrent -= 1;
-                        yCurrent -= 1;
-                    }
-                    else
-                    {
-                        xCurrent -= 1;
-                        yCurrent += 1;
-                    }
+                    if (xcurrent - xfinal < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                    else if (xcurrent - xfinal > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
                 }
-                else
+                if (ycurrent != yfinal)
                 {
-                    if (yFin < yCurrent)
-                    {
-                        xCurrent += 1;
-                        yCurrent -= 1;
-                    }
-                    else
-                    {
-                        xCurrent += 1;
-                        yCurrent += 1;
-                    }
+                    if (ycurrent - yfinal < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                    else if (ycurrent - yfinal > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
                 }
-                if (Form1.matrice[yCurrent, xCurrent] == -1)
-                    heuris += 3* Math.Sqrt(2);
-                else
-                    heuris +=Math.Sqrt(2);
-                
+                dist += 1;
             }
-            while (xCurrent != xFin || yCurrent!=yFin)
+            return dist;
+        }
+        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
+        {
+            int diag = 0;
+            int diagM = 0;
+            int lign = 0;
+            int lignM = 0;
+            double dist = 0;
+            while (xcurrent != xfinal && ycurrent != yfinal)
             {
-                if(xCurrent!=xFin)
+                diag += 1;
+                //Déplacement selon x
+                if (xcurrent - xfinal < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                else if (xcurrent - xfinal > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                //Déplacement selon y
+                if (ycurrent - yfinal < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                else if (ycurrent - yfinal > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                //Valeur distance si perturbation ou non
+                if (Form1.matrice[xcurrent, ycurrent] == -1)
                 {
-                    if (xCurrent < xFin)
-                        xCurrent += 1;
-                    else
-                        xCurrent -= 1;
+                    dist += Math.Sqrt(2) * 3;
+                    diagM += 1; //Avec Perturbation
                 }
-                else
-                {
-                    if (yCurrent < yFin)
-                        yCurrent += 1;
-                    else
-                        yCurrent -= 1;
-                }
-                if (Form1.matrice[yCurrent, xCurrent] == -1)
-                    heuris += 3;
-                else
-                    heuris += 1;
+                else dist += Math.Sqrt(2);
             }
-            return heuris;
+            while (xcurrent != xfinal || ycurrent != yfinal)
+            {
+                lign += 1;
+                if (xcurrent != xfinal)
+                {
+                    if (xcurrent < xfinal ) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                    else if (xcurrent > xfinal) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                }
+                if (ycurrent != yfinal)
+                {
+                    if (ycurrent < yfinal) ycurrent += 1; //si le y courrant est au dessous du y final  
+                    else if (ycurrent > yfinal) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                }
+                if (Form1.matrice[xcurrent, ycurrent] == -1)
+                {
+                    dist += 3; //Avec Perturbation
+                    lignM += 1;
+                }
+                else dist += 1;
+            }
+            return dist;
         }
-
-        private double HCostEvnt1V1()
-        {
-            double volDoiseau;
-            int xfin = Form1.xfinal;
-            int yfin = Form1.yfinal;
-            volDoiseau = Math.Sqrt(Math.Pow(xfin - x, 2) + Math.Pow(yfin - y, 2)); 
-            return volDoiseau;
+        static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
+            int[] cible = new int[] {-1,-1}; 
+            double dist = 0;
+            if(ycurrent < yfinal){//haut
+                if(xcurrent > xfinal){ //haut-droit
+                    if(xcurrent < ycurrent){ //au dessus de f(x)=x
+                        cible = new int[] {xfinal-xcurrent, yfinal-xcurrent}; 
+                    }
+                    else{ // en dessous de f(x)=x
+                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent };
+                    }
+                }
+                else{ //if xcurrent < xfinal //haut-gauche 
+                    if( -xcurrent < ycurrent){// au dessus de f(x)=-x 
+                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent};
+                    }
+                    else{// en dessous de f(x)=-x
+                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
+                    }
+                }
+            }
+            else{//bas
+                if(xcurrent > xfinal){ //bas-droit
+                    if(xcurrent < ycurrent){ //au dessus de f(x)=-x
+                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent }; 
+                    }
+                    else{ // en dessous de f(x)=-x
+                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent };
+                    }
+                }
+                else{ //if xcurrent < xfinal //bas-gauche 
+                    if(-xcurrent<ycurrent){// au dessus de f(x)=x 
+                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
+                    }
+                    else{// en dessous de f(x)=-x
+                        cible = new int[] { xfinal-xcurrent, yfinal-xcurrent };
+                    }
+                }
+            }
+            Console.WriteLine("depart : [" + xcurrent+ "," + ycurrent + "]\n");
+            Console.WriteLine("final : [" + xfinal +"," + yfinal + "]\n");
+            Console.WriteLine("cible : [" + cible[0]+ "," + cible[1] + "]\n");
+            while(xcurrent != cible[0] || ycurrent != cible[1])
+            {
+                if (xcurrent != cible[0])
+                {
+                    if (xcurrent - cible[0] < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                    else if (xcurrent - cible[0] > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                }
+                if (ycurrent != cible[1])
+                {
+                    if (ycurrent - cible[1] < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                    else if (ycurrent - cible[1] > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                }
+                if (Form1.matrice[xcurrent, ycurrent] == -1)
+                {
+                    dist += 3; //Avec Perturbation
+                }
+                else dist += 1;
+            }
+            while (xcurrent != xfinal || ycurrent != yfinal)
+            {
+                //Déplacement selon x
+                if (xcurrent - xfinal < 0) xcurrent += 1; // si le x courant est positionné à gauche du x final 
+                else if (xcurrent - xfinal > 0) xcurrent -= 1; //sinon le point courrant est à droite du point final
+                //Déplacement selon y
+                if (ycurrent - yfinal < 0) ycurrent += 1; //si le y courrant est au dessous du y final  
+                else if (ycurrent - yfinal > 0) ycurrent -= 1; //sinon le y courran  est au dessus du y final
+                //Valeur distance si perturbation ou non
+                if (Form1.matrice[xcurrent, ycurrent] == -1)
+                {
+                    dist += Math.Sqrt(2) * 3;
+                }
+                else dist += Math.Sqrt(2);            
+            }
+            return dist;
         }
-        private double HCostEvnt1V2()
-        {
-            
-            int xCurrent = x;
-            int yCurrent = y;
-            int xfin = Form1.xfinal;
-            int yfin = Form1.yfinal;
-            return plusCourteAvecMarec(xCurrent, yCurrent, xfin, yfin);
-            
+        public static double DiamondPath(int xcurrent , int ycurrent, int xfinal , int yfinal){
+            return Math.Min(DiamondPathLignFirst(xcurrent, ycurrent, xfinal, yfinal), DiamondPathLignNext(xcurrent, ycurrent, xfinal, yfinal));
         }
-
-        private double HCostEvnt2()
+        public static double Manhattan(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
-            return 0;
+            int distX(int xc, int yc, int xf, int yf)
+            {
+                int dist = 0;
+                while (xc != xf)
+                {
+                    if (xc < xf) xc += 1; // si le x courant est positionné à gauche du x final 
+                    else if (xc > xf) xc -= 1; //sinon le point courrant est à droite du point final
+                    if (Form1.matrice[xc, yc] == -1)
+                    {
+                        dist += 3; //Avec Perturbation
+                    }
+                    else dist += 1;
+                }
+                return dist;
+            }
+            int distY(int xc, int yc, int xf, int yf){
+                int dist = 0;
+                while (yc != yf)
+                {
+                    if (yc < yf) yc += 1; //si le y courrant est au dessous du y final  
+                    else if (yc > yf) yc -= 1; //sinon le y courran  est au dessus du y final
+                    if (Form1.matrice[xc, yc] == -1)
+                    {
+                        dist += 3; //Avec Perturbation
+                    }
+                    else dist += 1;
+                }
+                //Console.WriteLine(x + "," + y + ", H : " + dist );
+                return dist;
+            }
+            int dist1 = distX(xcurrent, ycurrent, xfinal, yfinal) + distY(xcurrent, ycurrent, xfinal, yfinal);
+            int dist2 = distY(xcurrent, ycurrent, xfinal, yfinal) + distX(xcurrent, ycurrent, xfinal, yfinal);
+            return Math.Min(dist1,dist2);
         }
         
-        private double HCostEvnt3()
+        public override void calculCoutTotal(Func<int, int,int,int, double> EmpiricFunction)
         {
-            return 0;
+            HCost = CalculeHCost(Form1.environment,EmpiricFunction);
+            TotalCost = GCost + HCost;
+        }
+        public override double CalculeHCost(int envt,Func<int,int,int,int,double> EmpiricFunction)
+        {
+            if (envt == 1) return HCostEvnt1(EmpiricFunction);
+            else if (envt == 2) return HCostEvnt2(EmpiricFunction);
+            else if (envt == 3) return HCostEvnt3(EmpiricFunction);
+            return (0);
+        }
+        private double HCostEvnt1(Func<int,int,int,int,double> EmpiricFunction)
+        {
+            int xcurrent = x;
+            int ycurrent = y;
+            int xfinal = Form1.xfinal;
+            int yfinal = Form1.yfinal;
+            double dist = EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
+            return dist;
+        }
+        private double HCostEvnt2(Func<int,int,int,int,double> EmpiricFunction)
+        {
+            int xcurrent = x;
+            int ycurrent = y;
+            int xfinal = Form1.xfinal;
+            int yfinal = Form1.yfinal;
+            int xintermediaire = 10;
+            int yintermedaire = 8;
+            double HCostInterFinal = EmpiricFunction(xintermediaire, yintermedaire, xfinal, yfinal);
+            if ((xcurrent < xintermediaire && xfinal < xintermediaire) || (xcurrent > xintermediaire && xfinal > xintermediaire))
+            {
+                return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
+            }
+            else
+            {
+                if (xcurrent < xintermediaire)
+                {
+                    return EmpiricFunction(xcurrent, ycurrent, xintermediaire, yintermedaire) + HCostInterFinal;
+                }
+                else
+                {
+                    return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
+                }
+            }
+        }
+        private double HCostEvnt3(Func<int,int,int,int,double> EmpiricFunction)
+        {
+            int xcurrent = x;
+            int ycurrent = y;
+            int xfinal = Form1.xfinal;
+            int yfinal = Form1.yfinal;
+            int xinter1 = 10;
+            int yinter1 = 0;
+            int xinter2 = 2;
+            int yinter2 = 6;
+
+            int[,] positionEnclos = new int[Form1.nblignes,Form1.nbcolonnes];
+
+            positionEnclos[3,6] = 1;
+            positionEnclos[3,7] = 1;
+
+            positionEnclos[4,5] = 1;
+            positionEnclos[4,6] = 1;
+            positionEnclos[4,7] = 1;
+            positionEnclos[4,8] = 1;
+
+            positionEnclos[5,4] = 1;
+            positionEnclos[5,5] = 1;
+            positionEnclos[5,6] = 1;
+            positionEnclos[5,7] = 1;
+            positionEnclos[5,8] = 1;
+            positionEnclos[5,9] = 1;
+
+            positionEnclos[6,4] = 1;
+            positionEnclos[6,5] = 1;
+            positionEnclos[6,6] = 1;
+            positionEnclos[6,7] = 1;
+            positionEnclos[6,8] = 1;
+            positionEnclos[6,9] = 1;
+
+            positionEnclos[8,6] = 1;
+            positionEnclos[8,7] = 1;
+
+            if (xcurrent > xinter1 && xfinal > xinter1) //point courrant et final à doite de la barrière
+            {
+                return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
+            }
+            else if (xcurrent < xinter1 && xfinal < xinter1)
+            { //point courrant et final à gauche de la barrière
+                if (positionEnclos[xcurrent, ycurrent] == 1 && positionEnclos[xfinal, yfinal] == 1)
+                { //point courrant et final dans l'enclos
+                    return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal);
+                }
+                else if (positionEnclos[xfinal, yfinal] == 1)
+                { //point final dans l'enclos, courrant hors
+                    double distInter = EmpiricFunction(xcurrent, ycurrent, xinter2, yinter2);
+                    double distEnclos = EmpiricFunction(xinter2, yinter2, xfinal, yfinal);
+                    return distInter + distEnclos;
+                }
+                else if (positionEnclos[xcurrent, ycurrent] == 1)
+                { //point courrant dans l'enclos , final hors
+                    double distOutEnclos = EmpiricFunction(xcurrent, ycurrent, xinter2, yinter2);
+                    double distToFinal = EmpiricFunction(xinter2, yinter2, xfinal, yfinal);
+                    return distOutEnclos + distToFinal;
+                }
+                else
+                {
+                    return EmpiricFunction(xcurrent, ycurrent, xfinal, yfinal); //point courrant et final hors de l'enclos
+                }
+            }
+
+            else if (xcurrent > xinter1 && xfinal < xinter1)
+            { //point courrant à droite de la barrière, point fianl à gauche
+                double distInter = EmpiricFunction(xcurrent, ycurrent, xinter1, yinter1);
+                if (positionEnclos[xfinal, yfinal] == 1)
+                { //point final dans l'enclos
+                    double distToEnclos = EmpiricFunction(xinter1, yinter1, xinter2, yinter2);
+                    double distInEnclos = EmpiricFunction(xinter2, yinter2, xfinal, yfinal);
+                    return distInter + distToEnclos + distInEnclos;
+                }
+                else
+                { // point final hors de l'enclos
+                    double distFinal = EmpiricFunction(xinter1, yinter1, xfinal, yfinal);
+                    return distInter + distFinal;
+                }
+            }
+            else if (xcurrent < xinter1 && xfinal > xinter1)
+            { //point courrant à gauche de la barrière, point final à droite
+                if (positionEnclos[xcurrent, ycurrent] == 1)
+                { //point courrant dans l'enclos
+                    double distOutEnclos = EmpiricFunction(xcurrent, ycurrent, xinter2, yinter2);
+                    double distToInter = EmpiricFunction(xinter2, yinter2, xinter1, yinter1);
+                    double distToFinal = EmpiricFunction(xinter1, yinter1, xfinal, yfinal);
+                    return distOutEnclos + distToInter + distToFinal;
+                }
+                else
+                { //point courrant hors de l'enclos
+                    double distToInter = EmpiricFunction(xcurrent, ycurrent, xinter1, yinter1);
+                    double distToFinal = EmpiricFunction(xinter1, yinter1, xfinal, yfinal);
+                    return distToInter + distToFinal;
+                }
+            }
+            return -1;
         }
 
         public override string ToString()
         {
-            return Convert.ToString(x)+","+ Convert.ToString(y);
+            return Convert.ToString(x) + "," + Convert.ToString(y) + ", H : " + Convert.ToString(HCost) + ", F : " + Convert.ToString((int)(HCost+GCost));
         }
     }
 }

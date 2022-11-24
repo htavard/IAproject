@@ -61,11 +61,7 @@ namespace ProjetIA2022
             ParentNode = null;
         }
 
-        public void calculCoutTotal()
-        {
-            HCost = CalculeHCost(Form1.environment);
-            TotalCost = GCost + HCost;
-        }
+        abstract public void calculCoutTotal(Func<int, int, int, int, double> EmpiricFunction);
 
         public void RecalculeCoutTotal()
         {
@@ -77,7 +73,7 @@ namespace ProjetIA2022
         public abstract double GetArcCost(GenericNode N2);
         public abstract bool EndState();
         public abstract List<GenericNode> GetListSucc();
-        public abstract double CalculeHCost(int envt);
+        public abstract double CalculeHCost(int envt , Func<int,int,int,int,double> EmpiricFunction);
         // On peut aussi penser à surcharger ToString() pour afficher correctement un état
         // c'est utile pour l'affichage du treenode
     }

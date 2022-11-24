@@ -10,6 +10,7 @@ namespace ProjetIA2022
     {
         public List<GenericNode> L_Ouverts= new List<GenericNode>();
         public List<GenericNode> L_Fermes = new List<GenericNode>();
+        static public Func<int, int, int, int, double> EmpiricFunction;
 
         public int CountInOpenList()
         {
@@ -19,7 +20,6 @@ namespace ProjetIA2022
         {
             return L_Fermes.Count;
         }
-
         private GenericNode ChercheNodeDansFermes(GenericNode N2)
         {
             int i = 0;
@@ -133,7 +133,7 @@ namespace ProjetIA2022
                         // N2 est nouveau, MAJ et insertion dans les ouverts
                         N2.SetGCost(N.GetGCost() + N.GetArcCost(N2));
                         N2.SetNoeud_Parent(N);
-                        N2.calculCoutTotal(); // somme de GCost et HCost
+                        N2.calculCoutTotal(EmpiricFunction); // somme de GCost et HCost
                         this.InsertNewNodeInOpenList(N2);
                     }
                 }
