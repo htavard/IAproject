@@ -133,8 +133,9 @@ namespace ProjetIA2022
         static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
             int[] cible = new int[] {-1,-1}; 
             double dist = 0;
-            int xrel = xcurrent - yfinal;
+            int xrel = xcurrent - xfinal;
             int yrel = ycurrent - yfinal;
+            //Console.WriteLine("#############\n\nPosition Relative : [" +xrel +" , "+yrel+"]");
             //nouveau repère centrée sur le point final -> point relatif 
             if(yrel < 0){//haut sur la schéma -> zone 1 à 4
                 if(xrel < 0){ //haut-gauche -> zone 1 et 2
@@ -186,9 +187,9 @@ namespace ProjetIA2022
                     }
                 }
             }
-            Console.WriteLine("depart : [" + xcurrent+ "," + ycurrent + "]\n");
+            /*Console.WriteLine("depart : [" + xcurrent+ "," + ycurrent + "]\n");
             Console.WriteLine("final : [" + xfinal +"," + yfinal + "]\n");
-            Console.WriteLine("cible : [" + cible[0]+ "," + cible[1] + "]\n");
+            Console.WriteLine("cible : [" + cible[0]+ "," + cible[1] + "]\n");*/
             while(xcurrent != cible[0] || ycurrent != cible[1])
             {
                 if (xcurrent != cible[0])
