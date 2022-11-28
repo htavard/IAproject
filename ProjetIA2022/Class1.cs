@@ -133,18 +133,20 @@ namespace ProjetIA2022
         static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
             int[] cible = new int[] {-1,-1}; 
             double dist = 0;
-            int xrel = xcurrent - yfinal;
+            int xrel = xcurrent - xfinal;
             int yrel = ycurrent - yfinal;
             //nouveau repère centrée sur le point final -> point relatif 
             if(yrel < 0){//haut sur la schéma -> zone 1 à 4
                 if(xrel < 0){ //haut-gauche -> zone 1 et 2
-                    if(xrel < yrel){ 
+                    if(xrel < yrel){
                         //au dessus de f(x)=x -> zone 1 
+                        Console.WriteLine("Zone 1");
                         cible = new int[] {xfinal +yrel ,yfinal + yrel}; 
                     }
                     else
-                    { 
+                    {
                         // en dessous de f(x)=x -> zone 2
+                        Console.WriteLine("Zone 2");
                         cible = new int[] { xfinal + xrel, yfinal + xrel};
                     }
                 }
@@ -152,11 +154,13 @@ namespace ProjetIA2022
                     if(-xrel > yrel)
                     {
                         // en dessous de f(x)=-x -> zone 3
+                        Console.WriteLine("Zone 3");
                         cible = new int[] { xfinal + xrel, yfinal - xrel};
                     }
                     else
                     {
                         // au dessus de f(x)=-x -> zone 4
+                        Console.WriteLine("Zone 4");
                         cible = new int[] { xfinal - yrel, yfinal + yrel};
                     }
                 }
@@ -164,24 +168,28 @@ namespace ProjetIA2022
             else{//bas //yrel > 0 -> zone 5 à 8
                 if(xrel > 0){ //bas-droit -> zone 5 et 6
                     if(xrel > yrel)
-                    { 
+                    {
                         //en dessous de f(x)=x -> zone 5
+                        Console.WriteLine("Zone 5");
                         cible = new int[] { xfinal + yrel, yfinal + yrel};
                     }
                     else
                     { // au dessus de f(x)=x -> zone 6
+                        Console.WriteLine("Zone 6");
                         cible = new int[] { xfinal + xrel, yfinal + xrel};
                     }
                 }
                 else{ //if xcurrent < xfinal //bas-gauche -> zone 7 et 8
                     if(-xrel<yrel)
                     {
+                        Console.WriteLine("Zone 7");
                         // au dessus de f(x)=-x -> zone 7
                         cible = new int[] { xfinal + xrel, yfinal - xrel};
                     }
                     else
                     {
                         // en dessous de f(x)=-x -> zone 8
+                        Console.WriteLine("Zone 8");
                         cible = new int[] { xfinal - yrel, yfinal + yrel};
                     }
                 }
