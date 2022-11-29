@@ -6,4 +6,4 @@ De plus, il est à préciser que l’on utilise un algorithme A*, ce qui signifi
 Ainsi l’algorithme, dans sa forme initiale avant implémentation d’une quelconque heuristique, se contente d’appliquer Dijkstra, c’est-à-dire renvoyer un h(n) égal à 0. 
 Nous allons donc passer en revue les heuristiques choisies pour chacun des trois environnements de recherche proposés, ainsi que les résultats associés et les éventuelles divergences qu’il est possible d’obtenir en faisant varier les bons paramètres. 
 
-Projet réalisé par les étudiants de l'ENSC HUBACHER Lorinda , PERRET Quentin et TAVARD Hugo 
+Projet réalisé par les étudiants de l'ENSC [[HUBACHER Lorinda]] , [[PERRET Quentin]] et [[TAVARD Hugo]]
