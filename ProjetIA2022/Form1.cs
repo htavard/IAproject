@@ -209,12 +209,14 @@ namespace ProjetIA2022
         {
             environment = 1;
             load_environment("environnement1.txt");
+            labelEnv.Text = "Environment 1";
             buttonAstar.Enabled = true;
         }
         private void buttonInit2_Click(object sender, EventArgs e)
         {
             environment = 2;
             load_environment("environnement2.txt");
+            labelEnv.Text = "Environment 2";
             buttonAstar.Enabled = true;
         }
 
@@ -222,6 +224,7 @@ namespace ProjetIA2022
         {
             environment = 3;
             load_environment("environnement3.txt");
+            labelEnv.Text = "Environment 3";
             buttonAstar.Enabled = true;
         }
 
@@ -235,6 +238,18 @@ namespace ProjetIA2022
         {
             EmpiricFunctionLabel.Text = "Diamond";
             SearchTree.EmpiricFunction = Node2.DiamondPath;
+        }
+
+        private void BestEuriBtn_Click(object sender, EventArgs e)
+        {
+            EmpiricFunctionLabel.Text = "Manhattan + Diamond";
+            SearchTree.EmpiricFunction = Node2.BestEuristic;
+        }
+
+        private void PrimitiveFunctionBtn_Click(object sender, EventArgs e)
+        {
+            EmpiricFunctionLabel.Text = "Primitive Function";
+            SearchTree.EmpiricFunction = Node2.PrimitiveEuristic;
         }
 
     }

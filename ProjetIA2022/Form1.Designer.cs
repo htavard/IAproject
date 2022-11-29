@@ -58,6 +58,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.EmpiricFunctionLabel = new System.Windows.Forms.Label();
+            this.BestEuriBtn = new System.Windows.Forms.Button();
+            this.PrimitiveFunctionBtn = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.labelEnv = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -121,7 +125,7 @@
             this.treeView1.Location = new System.Drawing.Point(866, 400);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(521, 258);
+            this.treeView1.Size = new System.Drawing.Size(151, 258);
             this.treeView1.TabIndex = 5;
             // 
             // buttonInit1
@@ -227,7 +231,7 @@
             // buttonAstar
             // 
             this.buttonAstar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonAstar.Location = new System.Drawing.Point(448, 81);
+            this.buttonAstar.Location = new System.Drawing.Point(580, 72);
             this.buttonAstar.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAstar.Name = "buttonAstar";
             this.buttonAstar.Size = new System.Drawing.Size(86, 31);
@@ -240,7 +244,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(803, 48);
+            this.label5.Location = new System.Drawing.Point(720, 105);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(80, 17);
@@ -251,7 +255,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(803, 67);
+            this.label6.Location = new System.Drawing.Point(720, 124);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 17);
@@ -262,7 +266,7 @@
             // 
             this.labelOuverts.AutoSize = true;
             this.labelOuverts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOuverts.Location = new System.Drawing.Point(885, 48);
+            this.labelOuverts.Location = new System.Drawing.Point(802, 105);
             this.labelOuverts.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelOuverts.Name = "labelOuverts";
             this.labelOuverts.Size = new System.Drawing.Size(16, 17);
@@ -273,7 +277,7 @@
             // 
             this.labelFermes.AutoSize = true;
             this.labelFermes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFermes.Location = new System.Drawing.Point(885, 67);
+            this.labelFermes.Location = new System.Drawing.Point(802, 124);
             this.labelFermes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelFermes.Name = "labelFermes";
             this.labelFermes.Size = new System.Drawing.Size(16, 17);
@@ -327,9 +331,9 @@
             // 
             // Manhattan
             // 
-            this.Manhattan.Location = new System.Drawing.Point(25, 266);
+            this.Manhattan.Location = new System.Drawing.Point(28, 286);
             this.Manhattan.Name = "Manhattan";
-            this.Manhattan.Size = new System.Drawing.Size(75, 23);
+            this.Manhattan.Size = new System.Drawing.Size(94, 23);
             this.Manhattan.TabIndex = 24;
             this.Manhattan.Text = "Manhattan";
             this.Manhattan.UseVisualStyleBackColor = true;
@@ -337,9 +341,9 @@
             // 
             // Diamond
             // 
-            this.Diamond.Location = new System.Drawing.Point(149, 266);
+            this.Diamond.Location = new System.Drawing.Point(128, 286);
             this.Diamond.Name = "Diamond";
-            this.Diamond.Size = new System.Drawing.Size(75, 23);
+            this.Diamond.Size = new System.Drawing.Size(98, 23);
             this.Diamond.TabIndex = 25;
             this.Diamond.Text = "Diamond";
             this.Diamond.UseVisualStyleBackColor = true;
@@ -348,7 +352,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(12, 238);
+            this.label10.Location = new System.Drawing.Point(12, 233);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(152, 13);
             this.label10.TabIndex = 26;
@@ -357,7 +361,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 311);
+            this.label11.Location = new System.Drawing.Point(12, 346);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(91, 13);
             this.label11.TabIndex = 27;
@@ -366,17 +370,59 @@
             // EmpiricFunctionLabel
             // 
             this.EmpiricFunctionLabel.AutoSize = true;
-            this.EmpiricFunctionLabel.Location = new System.Drawing.Point(109, 311);
+            this.EmpiricFunctionLabel.Location = new System.Drawing.Point(109, 346);
             this.EmpiricFunctionLabel.Name = "EmpiricFunctionLabel";
             this.EmpiricFunctionLabel.Size = new System.Drawing.Size(33, 13);
             this.EmpiricFunctionLabel.TabIndex = 28;
             this.EmpiricFunctionLabel.Text = "None";
+            // 
+            // BestEuriBtn
+            // 
+            this.BestEuriBtn.Location = new System.Drawing.Point(28, 315);
+            this.BestEuriBtn.Name = "BestEuriBtn";
+            this.BestEuriBtn.Size = new System.Drawing.Size(198, 23);
+            this.BestEuriBtn.TabIndex = 29;
+            this.BestEuriBtn.Text = "Manhattan + Diamond";
+            this.BestEuriBtn.UseVisualStyleBackColor = true;
+            this.BestEuriBtn.Click += new System.EventHandler(this.BestEuriBtn_Click);
+            // 
+            // PrimitiveFunctionBtn
+            // 
+            this.PrimitiveFunctionBtn.Location = new System.Drawing.Point(28, 257);
+            this.PrimitiveFunctionBtn.Name = "PrimitiveFunctionBtn";
+            this.PrimitiveFunctionBtn.Size = new System.Drawing.Size(198, 23);
+            this.PrimitiveFunctionBtn.TabIndex = 30;
+            this.PrimitiveFunctionBtn.Text = "Primitive Function";
+            this.PrimitiveFunctionBtn.UseVisualStyleBackColor = true;
+            this.PrimitiveFunctionBtn.Click += new System.EventHandler(this.PrimitiveFunctionBtn_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(325, 85);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(111, 13);
+            this.label12.TabIndex = 31;
+            this.label12.Text = "Current environment : ";
+            // 
+            // labelEnv
+            // 
+            this.labelEnv.AutoSize = true;
+            this.labelEnv.Location = new System.Drawing.Point(442, 85);
+            this.labelEnv.Name = "labelEnv";
+            this.labelEnv.Size = new System.Drawing.Size(33, 13);
+            this.labelEnv.TabIndex = 32;
+            this.labelEnv.Text = "None";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1628, 799);
+            this.Controls.Add(this.labelEnv);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.PrimitiveFunctionBtn);
+            this.Controls.Add(this.BestEuriBtn);
             this.Controls.Add(this.EmpiricFunctionLabel);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -450,6 +496,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label EmpiricFunctionLabel;
+        private System.Windows.Forms.Button BestEuriBtn;
+        private System.Windows.Forms.Button PrimitiveFunctionBtn;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label labelEnv;
     }
 }
 

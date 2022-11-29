@@ -56,7 +56,7 @@ namespace ProjetIA2022
             return lsucc;
         }
 
-        double ShortestRoadWithoutPerturbation(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        static public double PrimitiveEuristic(int xcurrent, int ycurrent, int xfinal, int yfinal)
         {
             double dist = 0;
             while (xcurrent != xfinal || ycurrent != yfinal)
@@ -84,7 +84,7 @@ namespace ProjetIA2022
             }
             return dist;
         }
-        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal)//fonction a revoir car imcomplète 
+        static double DiamondPathLignNext(int xcurrent, int ycurrent, int xfinal, int yfinal) 
         {
             int diag = 0;
             int diagM = 0;
@@ -133,45 +133,71 @@ namespace ProjetIA2022
         static double DiamondPathLignFirst(int xcurrent , int ycurrent, int xfinal , int yfinal){
             int[] cible = new int[] {-1,-1}; 
             double dist = 0;
-            if(ycurrent < yfinal){//haut
-                if(xcurrent > xfinal){ //haut-droit
-                    if(xcurrent < ycurrent){ //au dessus de f(x)=x
-                        cible = new int[] {xfinal-xcurrent, yfinal-xcurrent}; 
+            int xrel = xcurrent - xfinal;
+            int yrel = ycurrent - yfinal;
+            //Console.WriteLine("#############\n\nPosition Relative : [" +xrel +" , "+yrel+"]");
+            //nouveau repère centrée sur le point final -> point relatif 
+            if(yrel < 0){//haut sur la schéma -> zone 1 à 4
+                if(xrel < 0){ //haut-gauche -> zone 1 et 2
+                    if(xrel < yrel){
+                        //au dessus de f(x)=x -> zone 1 
+                        Console.WriteLine("Zone 1");
+                        cible = new int[] {xfinal +yrel ,yfinal + yrel}; 
                     }
-                    else{ // en dessous de f(x)=x
-                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent };
-                    }
-                }
-                else{ //if xcurrent < xfinal //haut-gauche 
-                    if( -xcurrent < ycurrent){// au dessus de f(x)=-x 
-                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent};
-                    }
-                    else{// en dessous de f(x)=-x
-                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
-                    }
-                }
-            }
-            else{//bas
-                if(xcurrent > xfinal){ //bas-droit
-                    if(xcurrent < ycurrent){ //au dessus de f(x)=-x
-                        cible = new int[] { xfinal-ycurrent, yfinal-ycurrent }; 
-                    }
-                    else{ // en dessous de f(x)=-x
-                        cible = new int[] { xfinal-xcurrent, yfinal+xcurrent };
+                    else
+                    {
+                        // en dessous de f(x)=x -> zone 2
+                        Console.WriteLine("Zone 2");
+                        cible = new int[] { xfinal + xrel, yfinal + xrel};
                     }
                 }
-                else{ //if xcurrent < xfinal //bas-gauche 
-                    if(-xcurrent<ycurrent){// au dessus de f(x)=x 
-                        cible = new int[] { xfinal+ycurrent, yfinal-ycurrent };
+                else{ //if xcurrent < xfinal //haut-droit -> zone 3 et 4 
+                    if(-xrel > yrel)
+                    {
+                        // en dessous de f(x)=-x -> zone 3
+                        Console.WriteLine("Zone 3");
+                        cible = new int[] { xfinal + xrel, yfinal - xrel};
                     }
-                    else{// en dessous de f(x)=-x
-                        cible = new int[] { xfinal-xcurrent, yfinal-xcurrent };
+                    else
+                    {
+                        // au dessus de f(x)=-x -> zone 4
+                        Console.WriteLine("Zone 4");
+                        cible = new int[] { xfinal - yrel, yfinal + yrel};
                     }
                 }
             }
-            Console.WriteLine("depart : [" + xcurrent+ "," + ycurrent + "]\n");
+            else{//bas //yrel > 0 -> zone 5 à 8
+                if(xrel > 0){ //bas-droit -> zone 5 et 6
+                    if(xrel > yrel)
+                    {
+                        //en dessous de f(x)=x -> zone 5
+                        Console.WriteLine("Zone 5");
+                        cible = new int[] { xfinal + yrel, yfinal + yrel};
+                    }
+                    else
+                    { // au dessus de f(x)=x -> zone 6
+                        Console.WriteLine("Zone 6");
+                        cible = new int[] { xfinal + xrel, yfinal + xrel};
+                    }
+                }
+                else{ //if xcurrent < xfinal //bas-gauche -> zone 7 et 8
+                    if(-xrel<yrel)
+                    {
+                        Console.WriteLine("Zone 7");
+                        // au dessus de f(x)=-x -> zone 7
+                        cible = new int[] { xfinal + xrel, yfinal - xrel};
+                    }
+                    else
+                    {
+                        // en dessous de f(x)=-x -> zone 8
+                        Console.WriteLine("Zone 8");
+                        cible = new int[] { xfinal - yrel, yfinal + yrel};
+                    }
+                }
+            }
+            /*Console.WriteLine("depart : [" + xcurrent+ "," + ycurrent + "]\n");
             Console.WriteLine("final : [" + xfinal +"," + yfinal + "]\n");
-            Console.WriteLine("cible : [" + cible[0]+ "," + cible[1] + "]\n");
+            Console.WriteLine("cible : [" + cible[0]+ "," + cible[1] + "]\n");*/
             while(xcurrent != cible[0] || ycurrent != cible[1])
             {
                 if (xcurrent != cible[0])
@@ -247,6 +273,11 @@ namespace ProjetIA2022
             return Math.Min(dist1,dist2);
         }
         
+        public static double BestEuristic(int xcurrent, int ycurrent, int xfinal, int yfinal)
+        {
+            return Math.Min(Manhattan(xcurrent, ycurrent, xfinal, yfinal), DiamondPath(xcurrent, ycurrent, xfinal, yfinal));
+        }
+
         public override void calculCoutTotal(Func<int, int,int,int, double> EmpiricFunction)
         {
             HCost = CalculeHCost(Form1.environment,EmpiricFunction);
