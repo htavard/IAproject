@@ -1,4 +1,4 @@
-# Shopping Fraud Detection
+# IAProject
 L’objectif de ce projet est de rechercher les heuristiques les plus efficaces possibles dans le cadre d’un programme destiné à trouver le chemin le plus court entre deux points. 
 Le programme en question, ainsi que l’affichage console qui l’accompagne et l’illustre, sont déjà fournis en amont.
 Ce qui nous intéresse plus particulièrement est l'arbre d’exploration généré par la recherche du bon chemin, puisque nous essayons de le réduire au maximum. Pour se faire, nous devons appliquer des heuristiques pertinentes à l’algorithme. 
